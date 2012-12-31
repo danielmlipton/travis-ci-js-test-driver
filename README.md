@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/danielmlipton/travis-ci-js-test-driver.png?branch=master)](https://travis-ci.org/danielmlipton/travis-ci-js-test-driver)
+
 travis-ci-js-test-driver
 ========================
 
