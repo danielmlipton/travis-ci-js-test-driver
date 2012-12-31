@@ -13,7 +13,7 @@
         "url":  "git@github.com:danielmlipton/pubsub.git"
     },
     "devDependencies": {
-        "phantomjs":     "0.2.x",
+        "phantomjs":     "0.2.x"
     },
     "analyze": false,
     "license": "MIT",
