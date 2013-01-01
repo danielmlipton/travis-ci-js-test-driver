@@ -48,7 +48,7 @@ curl -o resources/JsTestDriver-1.3.3d.jar \
         http://js-test-driver.googlecode.com/files/JsTestDriver-1.3.3d.jar
 ```
 
-== Testing Your Setup
+## Testing Your Setup
 
 To ensure that your installation is working with the tests included in the
 submodule js-test-driver-demo, you'll need to start the JsTestDriver server:
@@ -121,7 +121,7 @@ git submodule add git://github.com/larrymyers/js-test-driver-phantomjs.git \
     path/to/js-test-driver-phantomjs
 ```
 
-== Tips
+## Tips
 
 PhantomJS uses [a very old version of WebKit]
 (http://code.google.com/p/phantomjs/issues/detail?id=522) that doesn't support
