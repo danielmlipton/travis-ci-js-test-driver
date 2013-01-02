@@ -1,1 +1,216 @@
-My GitHub Page
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="travis-ci-js-test-driver : An example of how to use Js Test Driver with Travis CI" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>travis-ci-js-test-driver</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/danielmlipton/travis-ci-js-test-driver">View on GitHub</a>
+
+          <h1 id="project_title">travis-ci-js-test-driver</h1>
+          <h2 id="project_tagline">An example of how to use Js Test Driver with Travis CI</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/danielmlipton/travis-ci-js-test-driver/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/danielmlipton/travis-ci-js-test-driver/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><a href="https://travis-ci.org/danielmlipton/travis-ci-js-test-driver"><img src="https://travis-ci.org/danielmlipton/travis-ci-js-test-driver.png?branch=master" alt="Build Status"></a></p>
+
+<h1>travis-ci-js-test-driver</h1>
+
+<h2>Get The Code</h2>
+
+<p>Note that this repository uses two required submodules.  To get all of the code
+you need, please use the following commands:</p>
+
+<pre><code>git clone git@github.com:danielmlipton/travis-ci-js-test-driver.git
+git submodule init
+git submodule update
+</code></pre>
+
+<h2>Dependencies</h2>
+
+<ul>
+<li><a href="http://nodejs.org/">node.js</a></li>
+</ul><p>With <a href="http://mxcl.github.com/homebrew/">Homebrew</a> on a Mac:</p>
+
+<pre><code>brew update &amp;&amp; brew install node
+</code></pre>
+
+<ul>
+<li><a href="http://phantomjs.org/">PhantomJS</a></li>
+</ul><pre><code>npm install phantomjs
+</code></pre>
+
+<p>or</p>
+
+<pre><code>brew install phantomjs
+</code></pre>
+
+<p><em>TODO: Document how to install phantom with the included package.json</em></p>
+
+<p>This repository does not contain the JsTestDriver jar, but the included Travis
+CI config will download the file on the build machine and place it in the 
+appropriate directory.  If you'd like to run the tests locally, you'll need to
+download the following file:</p>
+
+<pre><code>curl -o resources/JsTestDriver-1.3.3d.jar \
+        http://js-test-driver.googlecode.com/files/JsTestDriver-1.3.3d.jar
+</code></pre>
+
+<h2>Testing Your Setup</h2>
+
+<p>To ensure that your installation is working with the tests included in the
+submodule js-test-driver-demo, you'll need to start the JsTestDriver server:</p>
+
+<pre><code>java -jar resources/js-test-driver/JsTestDriver-1.3.3d.jar \
+     --basePath resources/js-test-driver                   \
+     --config resources/js-test-driver/jsTestDriver.conf   \
+     --port 9876 
+</code></pre>
+
+<p>Then you'll need to start an instance of PhantomJS with the submodule
+js-test-driver-phantomjs:</p>
+
+<pre><code>phantomjs resources/js-test-driver-phantomjs/phantomjs-jstd.js &amp;
+</code></pre>
+
+<p>Finally, you'll need to execute all of the tests:</p>
+
+<pre><code>java -jar resources/js-test-driver/JsTestDriver-1.3.3d.jar \
+     --basePath resources/js-test-driver --tests all --reset
+</code></pre>
+
+<p>You should see results like:</p>
+
+<pre><code>Safari: Reset
+Safari: Reset
+.
+.
+.
+.
+.
+..
+.
+...
+Total 11 tests (Passed: 11; Fails: 0; Errors: 0) (3053.00 ms)
+Safari 534.34 Mac OS: Run 11 tests (Passed: 11; Fails: 0; Errors 0) (3053.00 ms)
+ConsoleTestCase.testLogging passed (1.00 ms)
+      [LOG] This is log message.
+      [DEBUG] Printing out the value  2
+      [INFO] Array content is:  ["one","two",3,"four"]  
+      [WARN] The value is undefined:  undefined
+      [ERROR] 1 2 3 4 5 6 7 8 9 10
+</code></pre>
+
+<h2>Merging With Your Repository</h2>
+
+<p>Before moving any of these files into your own repository, you should note that
+there is no src or lib directories included with this example.  The test code
+was unceremoniously borrowed from Mária Jurčovičová's <a href="http://meri-stuff.blogspot.com/2012/01/javascript-testing-with-jstestdriver.html">very thorough post</a>
+about testing with JsTestDriver.  It's only included as an example of tests
+written for JsTestDriver.  You probably don't want to use them in your code.</p>
+
+<p>Second, you probably don't want to include a 4 Mb binary file in your repository.
+In order to do this, please add the following to your .gitignore:</p>
+
+<pre><code>JsTestDriver-1.3.3d.jar
+</code></pre>
+
+<p>Third, you might already have a .travis.yml in your repository.  You will need
+to copy at least the before_script section of the included .travis.yml.</p>
+
+<p>Lastly, you probably do want to add js-test-driver-phantomjs to your repository
+as a submodole.  You can accomplish this with the following command, just change
+the destination path:</p>
+
+<pre><code>git submodule add git://github.com/larrymyers/js-test-driver-phantomjs.git \
+    path/to/js-test-driver-phantomjs
+</code></pre>
+
+<h2>Tips</h2>
+
+<p>PhantomJS uses <a href="http://code.google.com/p/phantomjs/issues/detail?id=522">a very old version of WebKit</a> that doesn't support
+<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind">bind()</a>
+and likely other new features in <a href="https://developer.mozilla.org/en-US/docs/JavaScript/New_in_JavaScript/1.8.5">JavaScript 1.8.5</a>.
+If you use bind() in any of the code you are testing, you'll need to include
+a <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Function/bind#Compatibility">polyfill</a>.
+Additional polyfills can be found at <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">Modernizr's excellent collection</a> or
+at Mozilla Developer Network's <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference">JavaScript Reference</a>.</p>
+
+<p>The most recent versions of JsTestDriver have problems with relative paths.
+According to <a href="http://code.google.com/p/js-test-driver/issues/detail?id=223">this thread</a>
+on the JsTestDriver site, you'll need to use JsTestDriver-1.3.3d in order to
+use it on Travis CI because you don't control the path there.  Sure, you could
+monkey around with bash or other scripting tool to set it if you absolutely need
+to, but there was no compelling feature in the newer versions for me.</p>
+
+<h2>The Story Of This Repository</h2>
+
+<p>When I was writing the tests for <a href="https://github.com/danielmlipton/pubsub">pubsub</a>,
+I became curious about code coverage.  After a brief tangle with a variety of
+different options, I chose to use <a href="http://code.google.com/p/js-test-driver/">JsTestDriver</a>
+with the coverage plugin.  This had the following benefits:</p>
+
+<ol>
+<li> A IDE and CI friendly tool for running unit tests.</li>
+<li> Code coverage</li>
+<li> The project has (relatively) lengthy history, even if does not seem to be in very active development.</li>
+<li> Reasonable documentation, if scattered across many different blogs.</li>
+</ol><p>In writing tests for <a href="https://github.com/danielmlipton/clock">clock</a>, I used
+<a href="http://phantomjs.org/">PhantomJS</a> and <a href="http://zombie.labnotes.org/">Zombie.js</a>
+with <a href="http://qunitjs.com/">QUnit</a> and <a href="https://github.com/cucumber/cucumber-js">cucumber-js</a>.
+QUnit comes wit <a href="https://github.com/jquery/qunit/tree/master/addons/phantomjs">runner.js</a>.<br>
+Cucmber-js utilizes Zombie.js.  While these tools work well and were easily
+integrated into <a href="https://travis-ci.org">Travis CI</a>, adding code coverage to the
+process proved troublesome.</p>
+
+<p>After writing a majority of my tests in QUnit, I discovered <a href="http://sinonjs.org/">Sinon.js</a>,
+which plays nicely with QUnit.  After integrating the two testing frameworks, I
+began in earnest trying to get the both running with JsTestDriver.  This was a
+lot more difficult than it should have been given a number of bugs in the various
+tools I chose to use.  See the tips section for a lengthier explanation of two
+of the bugs that a relevant to this repository.</p>
+
+<p>The effort took some pretty serious snooping and brute force attempts to solve
+problems I had little insight into.  However, with JsTestDriver was working on my
+local development environment I began the process of searching for others
+who had successfully set up <a href="https://groups.google.com/forum/?fromgroups=#!topic/js-test-driver/teDkckYql2w">JsTestDriver and Travis CI</a>.
+With no real leads, I began to blindly poke around Travis CI and eventually
+stumbled into a solution that worked.  After some refactoring, I felt that I had
+a reasonable approach that I thought I'd share here for others to learn from.</p>
+
+<p>In the end, JsTestDriver's code coverage plugin doesn't even work on Travis CI.
+In fact, it just reports <a href="https://travis-ci.org/danielmlipton/pubsub/builds/3890560">0.0% code coverage</a>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">travis-ci-js-test-driver maintained by <a href="https://github.com/danielmlipton">danielmlipton</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
